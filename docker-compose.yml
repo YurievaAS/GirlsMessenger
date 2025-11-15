@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/messengerdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+    networks:
+      - app-net
+
+  db:
+    image: postgres:16
+    container_name: messenger-postgres
+    environment:
+      POSTGRES_DB: messengerdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    expose:
+      - "5432"         # делает порт доступным другим контейнерам, но НЕ пробрасывает на хост
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  app-net:
+
+volumes:
+  pgdata:
