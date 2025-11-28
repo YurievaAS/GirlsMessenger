@@ -3,6 +3,7 @@ package org.example.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.authDto.*;
 import org.example.service.AuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class AuthController {
     }
 
     @DeleteMapping("/logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> logout(@RequestBody RefreshTokenDTO tokens){
         authService.logout(tokens);
         return ResponseEntity.noContent().build();

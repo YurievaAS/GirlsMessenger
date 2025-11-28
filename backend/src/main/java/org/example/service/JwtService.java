@@ -1,6 +1,7 @@
 package org.example.service;
 
 import io.jsonwebtoken.*;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.exception.AuthenticationFailedException;
 import org.example.exception.InvalidTokenException;
@@ -21,6 +22,7 @@ import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class JwtService {
     private final JwtProperties jwtProperties;
     private final RefreshTokenRepository refreshTokenRepository;

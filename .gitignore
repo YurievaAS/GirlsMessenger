@@ -39,3 +39,4 @@ build/
 
 ### other ###
 .env
+/backend/logs

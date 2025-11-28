@@ -1,6 +1,6 @@
 package org.example.service;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.userDto.*;
 import org.example.entity.User;
@@ -9,6 +9,7 @@ import org.example.exception.ResourceAlreadyExistsException;
 import org.example.exception.ResourceNotFoundException;
 import org.example.mapper.UserMapper;
 import org.example.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,12 @@ public class UserService {
     private final UserMapper mapper;
     private final PasswordEncoder encoder;
 
+    @Transactional(readOnly = true)
     public List<UserDTO> index(){
         return mapper.map(repository.findAll());
     }
 
+    @Transactional(readOnly = true)
     public UserDTO get(Long id){
         User user = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("User with id " + id + " not found!"));
@@ -51,6 +54,7 @@ public class UserService {
         return mapper.map(user);
     }
 
+    @PreAuthorize("#id == authentication.principal.user.id")
     public UserDTO update(Long id, UserUpdateDTO dto){
         User user = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("User with id " + id + " not found!"));
@@ -76,6 +80,7 @@ public class UserService {
         return mapper.map(user);
     }
 
+    @PreAuthorize("#id == authentication.principal.user.id")
     public void delete(Long id){
         User user = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("User with id " + id + " not found!"));

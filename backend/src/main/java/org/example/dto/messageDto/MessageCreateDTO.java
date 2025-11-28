@@ -16,6 +16,5 @@ import java.util.List;
 public class MessageCreateDTO {
     private String text;
     private Long chat;
-    private Long sender;
     private List<Long> attachments = new ArrayList<>();
 }

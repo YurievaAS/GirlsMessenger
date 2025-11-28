@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByChatIdOrderByCreatedAtAsc(Long chatId);
+
+    boolean existsByIdAndSender_Id(Long messageId, Long senderId);
+
+    boolean existsByIdAndChat_Users_Id(Long messageId, Long senderId);
 }

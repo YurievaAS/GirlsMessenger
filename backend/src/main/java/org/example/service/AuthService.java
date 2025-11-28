@@ -1,5 +1,7 @@
 package org.example.service;
 
+import org.example.exception.ActionNotAllowedException;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.authDto.JwtAuthDTO;
 import org.example.dto.authDto.RefreshTokenDTO;
@@ -15,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthService {
     private final UserRepository repository;
     private final PasswordEncoder encoder;
@@ -27,7 +30,9 @@ public class AuthService {
 
     public void logout(RefreshTokenDTO token){
         String refreshToken = token.getRefreshToken();
-        //todo is rt null
+        if (refreshToken == null){
+            throw new ActionNotAllowedException("Refresh token is required!");
+        }
         jwtService.validateRefreshToken(refreshToken);
 
         String username = jwtService.getUsernameFromRefreshToken(refreshToken);

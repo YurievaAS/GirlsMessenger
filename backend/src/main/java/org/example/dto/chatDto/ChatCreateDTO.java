@@ -1,6 +1,8 @@
 package org.example.dto.chatDto;
 
 import lombok.*;
+import org.openapitools.jackson.nullable.JsonNullable;
+
 import java.util.List;
 
 @Setter
@@ -9,6 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class ChatCreateDTO {
     private String name;
-    private List<Long> users;
-    private List<Long> messages;
+    private JsonNullable<List<Long>> users;
 }

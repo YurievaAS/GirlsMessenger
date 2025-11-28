@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class MessageMapper {
     @Mapping(target = "attachments", source = "attachments", qualifiedByName = "IdsToAttachments")
     @Mapping(target = "chat", source = "chat", qualifiedByName = "IdToChat")
-    @Mapping(target = "sender", source = "sender", qualifiedByName = "IdToUser")
+    //@Mapping(target = "sender", source = "sender", qualifiedByName = "IdToUser")
     public abstract Message map(MessageCreateDTO dto);
 
     @Mapping(target = "attachments", source = "attachments", qualifiedByName = "AttachmentsToIds")

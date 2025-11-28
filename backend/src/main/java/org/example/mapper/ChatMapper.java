@@ -16,7 +16,6 @@ import java.util.List;
 )
 public abstract class ChatMapper {
     @Mapping(target = "users", source = "users", qualifiedByName = "IdsToUsers")
-    @Mapping(target = "messages", source = "messages", qualifiedByName = "IdsToMessages")
     public abstract Chat map(ChatCreateDTO dto);
 
     @Mapping(target = "users", source = "users", qualifiedByName = "UsersToIds")
