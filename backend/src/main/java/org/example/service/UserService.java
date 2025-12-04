@@ -35,6 +35,13 @@ public class UserService {
         return mapper.map(user);
     }
 
+    @Transactional(readOnly = true)
+    public List<UserDTO> findUserByUsernameOrEmail(String searchLine){
+        return mapper.map(repository.findByUsernameContainingIgnoreCaseOrEmailContainingIgnoreCase(
+                searchLine,
+                searchLine));
+    }
+
     public UserDTO save(UserCreateDTO dto){
         repository.findByUsername(dto.getUsername()).ifPresent(user -> {
             throw new ResourceAlreadyExistsException("User " + user.getUsername() + " already exists!");
@@ -86,4 +93,5 @@ public class UserService {
                 () -> new ResourceNotFoundException("User with id " + id + " not found!"));
         repository.delete(user);
     }
+
 }

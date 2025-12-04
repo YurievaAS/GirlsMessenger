@@ -12,5 +12,6 @@ public class UserUpdateDTO {
     private JsonNullable<String> username;
     private JsonNullable<String> email;
     private JsonNullable<String> profileImgUrl;
+    private JsonNullable<String> description;
     private JsonNullable<List<Long>> chats;
 }

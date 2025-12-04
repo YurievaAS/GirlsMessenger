@@ -31,6 +31,9 @@ public class User implements BaseEntity{
     @Column(nullable = false, length = 72)
     private String passwordHash;
 
+    @Column
+    private String description;
+    
     @URL
     @Column
     private String profileImgUrl;
