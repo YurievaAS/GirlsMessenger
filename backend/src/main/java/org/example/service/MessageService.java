@@ -57,7 +57,7 @@ public class MessageService {
         return messageMapper.map(message);
     }
 
-    @PreAuthorize("@messageRepository.existsByIdAndChat_Users_Id(#messageId, authentication.principal.user.id)")
+    //@PreAuthorize("@messageRepository.existsByIdAndChat_Users_Id(#messageId, authentication.principal.user.id)")
     public MessageDTO update(Long messageId, MessageUpdateDTO updateDTO){
         var message = getMessageOrThrow(messageId);
         checkIsEditable(message);
@@ -69,7 +69,7 @@ public class MessageService {
         return messageMapper.map(message);
     }
 
-    @PreAuthorize("@messageRepository.existsByIdAndChat_Users_Id(#messageId, authentication.principal.user.id)")
+    //@PreAuthorize("@messageRepository.existsByIdAndChat_Users_Id(#messageId, authentication.principal.user.id)")
     public void delete(Long messageId){
         var message = getMessageOrThrow(messageId);
         checkIsEditable(message);
@@ -78,13 +78,13 @@ public class MessageService {
     }
 
     @Transactional(readOnly = true)
-    @PreAuthorize("@messageRepository.existsByIdAndChat_Users_Id(#id, authentication.principal.user.id)")
+    //@PreAuthorize("@messageRepository.existsByIdAndChat_Users_Id(#id, authentication.principal.user.id)")
     public MessageDTO getById(Long id){
         return messageMapper.map(getMessageOrThrow(id));
     }
 
     @Transactional(readOnly = true)
-    @PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#chatId, authentication.principal.user.id) or hasRole('ADMIN')")
+    //@PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#chatId, authentication.principal.user.id) or hasRole('ADMIN')")
     public List<MessageDTO> getMessagesByChat(Long chatId){
         return messageMapper.map(messageRepository.findByChatIdOrderByCreatedAtAsc(chatId));
     }

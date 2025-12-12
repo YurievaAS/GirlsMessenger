@@ -93,11 +93,11 @@ public class JwtService {
             return true;
 
         } catch (ExpiredJwtException e) {
-            throw new InvalidTokenException("Token has expired");
+            throw new InvalidTokenException("Access token has expired");
         } catch (MalformedJwtException e) {
-            throw new InvalidTokenException("Token is malformed");
+            throw new InvalidTokenException("Access token is malformed");
         } catch (SecurityException e) {
-            throw new InvalidTokenException("Invalid token signature");
+            throw new InvalidTokenException("Invalid access token signature");
         } catch (JwtException e) {
             throw new AuthenticationFailedException("Access Token invalid");
         }
@@ -113,17 +113,17 @@ public class JwtService {
 
             String username = claims.getSubject();
             if (refreshTokenRepository.getToken(username) == null) {
-                throw new ResourceNotFoundException("Token with key " + username + "not found!");
+                throw new ResourceNotFoundException("Refresh token with key " + username + "not found!");
             }
 
             return true;
 
         } catch (ExpiredJwtException e) {
-            throw new InvalidTokenException("Token has expired");
+            throw new InvalidTokenException("Refresh token has expired");
         } catch (MalformedJwtException e) {
-            throw new InvalidTokenException("Token is malformed");
+            throw new InvalidTokenException("Refresh token is malformed");
         } catch (SecurityException e) {
-            throw new InvalidTokenException("Invalid token signature");
+            throw new InvalidTokenException("Invalid refresh token signature");
         } catch (JwtException e) {
             throw new AuthenticationFailedException("Refresh Token invalid");
         }

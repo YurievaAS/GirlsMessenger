@@ -42,7 +42,6 @@ public class AuthService {
         jwtService.deleteTokens(refreshToken);
     }
 
-
     public JwtAuthDTO refreshToken(RefreshTokenDTO refreshTokenDTO){
         String refreshToken = refreshTokenDTO.getRefreshToken();
 

@@ -35,7 +35,7 @@ public class ChatService {
     }
 
     @Transactional(readOnly = true)
-    @PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#id, authentication.principal.user.id)")
+    //@PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#id, authentication.principal.user.id)")
     public ChatDTO get(Long id){
         Chat chat = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Chat with id " + id + " not found!"));
@@ -61,7 +61,7 @@ public class ChatService {
         return mapper.map(chat);
     }
 
-    @PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#id, authentication.principal.user.id)")
+    //@PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#id, authentication.principal.user.id)")
     public ChatDTO update(Long id, ChatUpdateDTO dto){
         Chat chat = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Chat with id " + id + " not found!"));
@@ -74,7 +74,7 @@ public class ChatService {
         return mapper.map(chat);
     }
 
-    @PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#chatId, authentication.principal.user.id)")
+    //@PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#chatId, authentication.principal.user.id)")
     public ChatDTO addUser(Long chatId, Long userId){
         Chat chat = repository.findById(chatId).orElseThrow(
                 () -> new ResourceNotFoundException("Chat with id " + chatId + " not found!"));
@@ -91,7 +91,7 @@ public class ChatService {
         return mapper.map(chat);
     }
 
-    @PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#chatId, authentication.principal.user.id)")
+    //@PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#chatId, authentication.principal.user.id)")
     public ChatDTO leaveChat(Long chatId){
         Chat chat = repository.findById(chatId).orElseThrow(
                 () -> new ResourceNotFoundException("Chat with id " + chatId + " not found!"));
@@ -113,7 +113,7 @@ public class ChatService {
         return mapper.map(chat);
     }
 
-    @PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#id, authentication.principal.user.id)")
+    //@PreAuthorize("@chatRepository.existsByIdAndUsers_Id(#id, authentication.principal.user.id)")
     public void delete(Long id){
         Chat chat = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Chat with id " + id + " not found!"));

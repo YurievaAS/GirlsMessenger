@@ -42,6 +42,13 @@ public class UserService {
                 searchLine));
     }
 
+    @Transactional(readOnly = true)
+    public UserDTO findUserByUsername(String username){
+        User user = repository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User " + username + " not found!"));
+        return mapper.map(user);
+    }
+
     public UserDTO save(UserCreateDTO dto){
         repository.findByUsername(dto.getUsername()).ifPresent(user -> {
             throw new ResourceAlreadyExistsException("User " + user.getUsername() + " already exists!");
@@ -61,7 +68,7 @@ public class UserService {
         return mapper.map(user);
     }
 
-    @PreAuthorize("#id == authentication.principal.user.id")
+    //@PreAuthorize("#id == authentication.principal.user.id")
     public UserDTO update(Long id, UserUpdateDTO dto){
         User user = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("User with id " + id + " not found!"));
@@ -87,7 +94,7 @@ public class UserService {
         return mapper.map(user);
     }
 
-    @PreAuthorize("#id == authentication.principal.user.id")
+    //@PreAuthorize("#id == authentication.principal.user.id")
     public void delete(Long id){
         User user = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("User with id " + id + " not found!"));
